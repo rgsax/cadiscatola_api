@@ -1,7 +1,6 @@
 package com.cadiscatola.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.cadiscatola.model.SharedSpace;
@@ -17,6 +16,28 @@ import com.cadiscatola.wrapper.exceptions.RepositoryDoesNotExistException;
 
 public class CloudStorageUtils {
 	private CloudStorageUtils() { }
+	
+	/**Imposta l'indirizzo del server cloud
+	 * ATTENZIONE: La mancata inizializzazione delle coordinate del server
+	 * non garantisce il funzionamento delle api
+	 * 
+	 * @param ip
+	 */
+	public static void setCloudServerIp(String ip) {
+		setCloudServerFullCoords(ip, "admin", "admin");
+	}
+	
+	/**Imposta le coordinate del server cloud
+	 * ATTENZIONE: La mancata inizializzazione delle coordinate del server
+	 * non garantisce il funzionamento delle api
+	 * 
+	 * @param ip
+	 * @param adminUsername
+	 * @param adminPassword
+	 */
+	public static void setCloudServerFullCoords(String ip, String adminUsername, String adminPassword) {
+		ServerUtils.setServerCoords(ip, adminUsername, adminPassword);
+	}
 	
 	/**	Crea un utente. La password deve essere in chiaro (viene applicato l'hash durante la creazione).
 	 * 
@@ -275,7 +296,7 @@ public class CloudStorageUtils {
 		for(String owner : sharedSpacesValues.keySet()) {
 			String sharedSpaceName = Utils.getRealSharedSpaceName(sharedSpacesValues.get(owner), owner);
 			User ownerUser = new User();
-			user.setName(owner);
+			ownerUser.setName(owner);
 			
 			sharedSpaces.add(new SharedSpace(sharedSpaceName, ownerUser));
 		}

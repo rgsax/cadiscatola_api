@@ -1,38 +1,19 @@
 package com.cadiscatola;
 
+import com.cadiscatola.model.SharedSpace;
 import com.cadiscatola.model.User;
 import com.cadiscatola.utils.CloudStorageUtils;
-import com.cadiscatola.utils.exceptions.SharedSpaceAlreadyExistsException;
-import com.cadiscatola.utils.exceptions.UserAlreadyExistsException;
 import com.cadiscatola.wrapper.exceptions.InternalException;
 
 public class Main {
-
 	public static void main(String[] args) {
-		
-	}
-	
-	static void creaUtente() {
-		for(int i = 0 ; i < 10 ; ++i) {
-			try {
-				System.out.println(CloudStorageUtils.createUser("utente" + i, "password" + i));
-			} catch (UserAlreadyExistsException | InternalException e) {
-				e.printStackTrace();
-			}
-		}		
-	}
-	
-	static void creaSS() {
-		for(int i = 0 ; i < 10 ; ++i) {
-			try {
-				System.out.println(CloudStorageUtils.createSharedSpace("spazio" + i, new User("utente" + i, "password" + i)));
-			} catch (SharedSpaceAlreadyExistsException | InternalException e) {
-				e.printStackTrace();
-			}
+		try {
+			for(SharedSpace space : CloudStorageUtils.getAccessibleSharedSpaces(new User("utente1", null)))
+				System.out.println(space.getOwner().getName() + " | " + space.getName());
+		} catch (InternalException e) {
+			System.out.println("mi sono rotto");
 		}
-	}
-	
-	
+	}	
 }
 
 

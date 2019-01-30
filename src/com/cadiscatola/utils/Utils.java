@@ -10,6 +10,6 @@ public class Utils {
 	}
 	
 	static String getRealSharedSpaceName(String sharedSpaceName, String owner) {
-		return sharedSpaceName.substring(sharedSpaceName.indexOf(owner + "_") + 1);
+		return sharedSpaceName.substring(owner.length() + 1);
 	}
 }

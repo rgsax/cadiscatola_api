@@ -35,6 +35,12 @@ public class ServerUtils {
 	
 	private ServerUtils() { }
 	
+	public static void setServerCoords(String ip, String adminUsername, String adminPassword) {
+		HostURL = "http://" + ip + ":8080/gitblit/";
+		AdminName = adminUsername;
+		AdminPwd = adminPassword.toCharArray();
+	}
+	
 	/** Crea un repository (utilizzando le credenziali dell'admin) e gli associa un proprietario
 	 * 
 	 * @param name Nome delrepository
