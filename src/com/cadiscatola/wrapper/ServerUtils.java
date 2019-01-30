@@ -349,6 +349,14 @@ public class ServerUtils {
 		 */
 	}
 	
+	/** Restituisce True se l'utente ha i permessi di scrittura (può pushare) sul repository, False altrimenti.
+	 * 
+	 * @param user
+	 * @param repositoryName
+	 * @return
+	 * @throws InternalException
+	 * @throws RepositoryDoesNotExistException
+	 */
 	public static boolean canWriteToReposiory(String user, String repositoryName) throws InternalException, RepositoryDoesNotExistException {
 		Boolean canWrite = false;
 		
@@ -362,6 +370,14 @@ public class ServerUtils {
 		return true;
 	}
 	
+	/** Restituisce True se l'utente ha i permessi di lettura (può clonare, può pullare) sul repository, False altrimenti.
+	 * 
+	 * @param user
+	 * @param repositoryName
+	 * @return
+	 * @throws InternalException
+	 * @throws RepositoryDoesNotExistException
+	 */
 	public static boolean canReadToReposiory(String user, String repositoryName) throws InternalException, RepositoryDoesNotExistException {
 		Boolean canWrite = false;
 		
@@ -372,6 +388,12 @@ public class ServerUtils {
 		return canWrite != null;
 	}
 	
+	/** Restituisce una mappa dei repository in cui l'utente ha accesso (può clonare/può pullare, può pushare) 
+	 * 
+	 * @param user
+	 * @return
+	 * @throws InternalException
+	 */
 	public static Map<String, String> getUserAccessibleRepository(String user) throws InternalException {
 		Map<String, String> repoAndOwner = new HashMap<>();
 		
@@ -387,6 +409,13 @@ public class ServerUtils {
 		return repoAndOwner;
 	}
 	
+	/** Restituisce una lista di permessi (RegistrantAccessPermission) per un repository.
+	 * L'oggetto RegistrantAccessPermission contiene un campo utente e un campo per identificare il permesso.
+	 * 
+	 * @param repository
+	 * @return
+	 * @throws InternalException
+	 */
 	private static List<RegistrantAccessPermission> getRepositoryMemberPermissions(RepositoryModel repository) throws InternalException {
 		List<RegistrantAccessPermission> permissions = null;
 		
@@ -399,6 +428,11 @@ public class ServerUtils {
 		return permissions;
 	}
 	
+	/** Restituisce i RepositoryModel associati ai repository su GitBlit.
+	 * 
+	 * @return
+	 * @throws InternalException
+	 */
 	private static Collection<RepositoryModel> getRepositories() throws InternalException {
 		Collection<RepositoryModel> models = null;
 		try {

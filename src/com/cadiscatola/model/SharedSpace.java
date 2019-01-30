@@ -31,11 +31,33 @@ public class SharedSpace {
 		this.owner = owner;
 	}
 	
+	/** Restituisce una mappa M<S, K> tale che:
+	 * 		- M.get(S) è True se l'utente dal nickname S ha permessi di scrittura sul repository, False altrimenti
+	 * 
+	 * 
+	 * @return
+	 * @throws SharedSpaceDoesNotExistException
+	 * @throws InternalException
+	 */
 	public Map<String, Boolean> getCollaborators() throws SharedSpaceDoesNotExistException, InternalException {
 		return null;
 	}
 	
+	/** Aggiunge un collaboratore allo Sharespace
+	 * 
+	 * @param user
+	 * @param canWrite True se l'utente ha permessi di scrittura, False altrimenti 
+	 * @throws SharedSpaceDoesNotExistException
+	 * @throws InternalException
+	 */
 	public void addCollaborator(User user, Boolean canWrite) throws SharedSpaceDoesNotExistException, InternalException {	}
 	
+	/** Rimuove un collaboratore dallo Sharespace.
+	 * NON RIMUOVE LA COPIA LOCALE DELL'UTENTE.
+	 * 
+	 * @param user
+	 * @throws SharedSpaceDoesNotExistException
+	 * @throws InternalException
+	 */
 	public void removeCollaborator(User user) throws SharedSpaceDoesNotExistException, InternalException { }
 }

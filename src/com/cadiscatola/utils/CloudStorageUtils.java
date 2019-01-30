@@ -222,6 +222,14 @@ public class CloudStorageUtils {
 		return collaborators;
 	}
 	
+	/** Restituisce True se l'utente ha permesso di lettura sullo Sharespace, False altrimenti.
+	 * 
+	 * @param user
+	 * @param sharedSpace
+	 * @return
+	 * @throws SharedSpaceDoesNotExistException
+	 * @throws InternalException
+	 */
 	public static boolean userCanReadSharedSpace(User user, SharedSpace sharedSpace) throws SharedSpaceDoesNotExistException, InternalException {
 		boolean canRead = false;
 		
@@ -233,7 +241,14 @@ public class CloudStorageUtils {
 		
 		return canRead;
 	}
-	
+	/** Restituisce True se l'utente ha permesso di scrittura sullo Sharespace, False altrimenti.
+	 * 
+	 * @param user
+	 * @param sharedSpace
+	 * @return
+	 * @throws SharedSpaceDoesNotExistException
+	 * @throws InternalException
+	 */
 	public static boolean userCanWriteToSharedSpace(User user, SharedSpace sharedSpace) throws SharedSpaceDoesNotExistException, InternalException {
 		boolean canWrite = false;
 		
@@ -246,6 +261,13 @@ public class CloudStorageUtils {
 		return canWrite;
 	}
 	
+	/** Restituisce una lista degli Sharespace accessibili all'utenti, cioè Sharespace sui l'utente ha peremssi di 
+	 * scrittura o di lettura.
+	 * 
+	 * @param user
+	 * @return
+	 * @throws InternalException
+	 */
 	public static ArrayList<SharedSpace> getAccessibleSharedSpaces(User user) throws InternalException {
 		ArrayList<SharedSpace> sharedSpaces = new ArrayList<>();
 		
