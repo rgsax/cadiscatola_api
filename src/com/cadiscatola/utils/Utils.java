@@ -8,4 +8,8 @@ public class Utils {
 	public static String getSharedSpaceName(SharedSpace space) {
 		return space.getOwner().getName() + "_" + space.getName();
 	}
+	
+	static String getRealSharedSpaceName(String sharedSpaceName, String owner) {
+		return sharedSpaceName.substring(sharedSpaceName.indexOf(owner + "_") + 1);
+	}
 }

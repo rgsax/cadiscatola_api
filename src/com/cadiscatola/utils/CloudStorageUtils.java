@@ -1,5 +1,7 @@
 package com.cadiscatola.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.cadiscatola.model.SharedSpace;
@@ -242,5 +244,20 @@ public class CloudStorageUtils {
 		}
 		
 		return canWrite;
+	}
+	
+	public static ArrayList<SharedSpace> getAccessibleSharedSpaces(User user) throws InternalException {
+		ArrayList<SharedSpace> sharedSpaces = new ArrayList<>();
+		
+		Map<String, String> sharedSpacesValues = ServerUtils.getUserAccessibleRepository(user.getName());
+		for(String owner : sharedSpacesValues.keySet()) {
+			String sharedSpaceName = Utils.getRealSharedSpaceName(sharedSpacesValues.get(owner), owner);
+			User ownerUser = new User();
+			user.setName(owner);
+			
+			sharedSpaces.add(new SharedSpace(sharedSpaceName, ownerUser));
+		}
+		
+		return sharedSpaces;
 	}
 }

@@ -3,6 +3,7 @@ package com.cadiscatola.wrapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -296,11 +297,7 @@ public class ServerUtils {
 		RepositoryModel repository = getRepositoryModel(repositoryName);
 		List<RegistrantAccessPermission> permissions = null;
 		
-		try {
-			permissions = RpcUtils.getRepositoryMemberPermissions(repository, HostURL, AdminName, AdminPwd);
-		} catch (IOException e) {
-			throw new InternalException("gitblit api exception for getRepositoryMemberPermissions");
-		}
+		permissions = getRepositoryMemberPermissions(repository);
 		
 		for(RegistrantAccessPermission permission : permissions) {
 			if(!permission.isAdmin() && !permission.isOwner()) {
@@ -373,6 +370,44 @@ public class ServerUtils {
 		canWrite = permissions.get(user);
 		
 		return canWrite != null;
+	}
+	
+	public static Map<String, String> getUserAccessibleRepository(String user) throws InternalException {
+		Map<String, String> repoAndOwner = new HashMap<>();
+		
+		for(RepositoryModel repository : getRepositories()) {
+			for(RegistrantAccessPermission permission : getRepositoryMemberPermissions(repository)) {
+				if(permission.registrant.equals(user)) {
+					repoAndOwner.put(repository.owners.get(0), repository.name);
+					break;
+				}
+			}			
+		}
+		
+		return repoAndOwner;
+	}
+	
+	private static List<RegistrantAccessPermission> getRepositoryMemberPermissions(RepositoryModel repository) throws InternalException {
+		List<RegistrantAccessPermission> permissions = null;
+		
+		try {
+			permissions = RpcUtils.getRepositoryMemberPermissions(repository, HostURL, AdminName, AdminPwd);
+		} catch (IOException e) {
+			throw new InternalException("gitblit api exception for getRepositoryMemberPermissions");
+		}
+		
+		return permissions;
+	}
+	
+	private static Collection<RepositoryModel> getRepositories() throws InternalException {
+		Collection<RepositoryModel> models = null;
+		try {
+			models = RpcUtils.getRepositories(HostURL, AdminName, AdminPwd).values();
+		} catch (IOException e) {
+			throw new InternalException("gitblit api exception on getRepositories");
+		}
+		
+		return models;
 	}
 	
 	/** Restituisce il RepositoryModel di un repository che possiede un determinato nome. Non possono esistere repository con lo stesso nome.
