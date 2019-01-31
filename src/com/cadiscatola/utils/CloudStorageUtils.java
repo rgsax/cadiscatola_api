@@ -24,7 +24,7 @@ public class CloudStorageUtils {
 	 * @param ip
 	 */
 	public static void setCloudServerIp(String ip) {
-		setCloudServerFullCoords(ip, "admin", "admin");
+		setCloudServerFullCoords(ip, 8080, "admin", "admin");
 	}
 	
 	/**Imposta le coordinate del server cloud
@@ -32,11 +32,22 @@ public class CloudStorageUtils {
 	 * non garantisce il funzionamento delle api
 	 * 
 	 * @param ip
+	 * @param port
 	 * @param adminUsername
 	 * @param adminPassword
 	 */
-	public static void setCloudServerFullCoords(String ip, String adminUsername, String adminPassword) {
-		ServerUtils.setServerCoords(ip, adminUsername, adminPassword);
+	public static void setCloudServerFullCoords(String ip, int port, String adminUsername, String adminPassword) {
+		ServerUtils.setServerCoords(ip, port, adminUsername, adminPassword);
+	}
+	
+	/**Imposta l?URL del server cloud
+	 * ATTENZIONE: La mancata inizializzazione delle coordinate del server
+	 * non garantisce il funzionamento delle api
+	 * 
+	 * @param URL
+	 */
+	public static void setCloudServerURL(String URL) {
+		ServerUtils.setServerURL(URL);
 	}
 	
 	/**	Crea un utente. La password deve essere in chiaro (viene applicato l'hash durante la creazione).
