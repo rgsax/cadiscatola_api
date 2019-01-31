@@ -36,7 +36,7 @@ public class ServerUtils {
 	private ServerUtils() { }
 	
 	public static void setServerCoords(String ip, int port, String adminUsername, String adminPassword) {
-		HostURL = "http://" + ip + port + "/gitblit/";
+		HostURL = "http://" + ip + ":" + port + "/gitblit/";
 		AdminName = adminUsername;
 		AdminPwd = adminPassword.toCharArray();
 	}
