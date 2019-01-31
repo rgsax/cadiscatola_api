@@ -298,7 +298,7 @@ public class CloudStorageUtils {
 			User ownerUser = new User();
 			ownerUser.setName(owner);
 			
-			sharedSpaces.add(new SharedSpace(sharedSpaceName, ownerUser));
+			sharedSpaces.add(new SharedSpaceProxy(sharedSpaceName, ownerUser));
 		}
 		
 		return sharedSpaces;
