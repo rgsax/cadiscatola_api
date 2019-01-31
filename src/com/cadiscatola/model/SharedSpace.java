@@ -60,4 +60,9 @@ public class SharedSpace {
 	 * @throws InternalException
 	 */
 	public void removeCollaborator(User user) throws SharedSpaceDoesNotExistException, InternalException { }
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }
