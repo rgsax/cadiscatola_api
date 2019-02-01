@@ -42,6 +42,8 @@ public class ServerUtils {
 	}
 	
 	public static void setServerURL(String URL) {
+		if(!URL.endsWith("/"))
+			URL += "/";
 		HostURL = URL;
 	}
 	
